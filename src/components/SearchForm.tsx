@@ -25,7 +25,7 @@ export default function SearchForm({ defaultValue = "" }: SearchFormProps) {
                 type="text"
                 value={city}
                 onChange={(event) => setCity(event.target.value)}
-                placeholder="Enter city name"
+                placeholder="Wprowadź nazwe miasta"
                 className="flex-1 rounded-lg border border-gray-300 px-4 py-2"
             />
             <button
@@ -33,7 +33,7 @@ export default function SearchForm({ defaultValue = "" }: SearchFormProps) {
                 className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white"
             >
                 <Search className="size-4" />
-                Search
+                Szukaj
             </button>
         </form>
     );

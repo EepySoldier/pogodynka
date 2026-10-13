@@ -1,5 +1,6 @@
 import SearchForm from "@/components/SearchForm";
 import CurrentWeatherCard from "@/components/CurrentWeatherCard";
+import ForecastList from "@/components/ForecastList";
 import { getCityData, type City } from "@/lib/geocoding";
 import { getWeather, type Weather } from "@/lib/weather";
 
@@ -20,7 +21,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                 weather = await getWeather(city.latitude, city.longitude);
             }
         } catch {
-            errorMessage = "Could not load weather data. Please try again later.";
+            errorMessage = "Nie udało się załadować danych pogodowych. Spróbuj ponownie później.";
         }
     }
 
@@ -36,12 +37,13 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             )}
 
             {query && !errorMessage && !city && (
-                <p className="mt-6">No city found for &quot;{query}&quot;.</p>
+                <p className="mt-6">Nie znaleziono miasta dla &quot;{query}&quot;.</p>
             )}
 
             {city && weather && (
-                <div className="mt-6">
+                <div className="mt-6 flex flex-col gap-6">
                     <CurrentWeatherCard city={city} weather={weather} />
+                    <ForecastList daily={weather.daily} unit={weather.units.temperature} />
                 </div>
             )}
         </main>
