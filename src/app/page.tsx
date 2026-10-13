@@ -1,4 +1,5 @@
 import SearchForm from "@/components/SearchForm";
+import CurrentWeatherCard from "@/components/CurrentWeatherCard";
 import { getCityData, type City } from "@/lib/geocoding";
 import { getWeather, type Weather } from "@/lib/weather";
 
@@ -39,9 +40,9 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             )}
 
             {city && weather && (
-                <pre className="mt-6 text-sm">
-          {JSON.stringify({ city, weather }, null, 2)}
-        </pre>
+                <div className="mt-6">
+                    <CurrentWeatherCard city={city} weather={weather} />
+                </div>
             )}
         </main>
     );

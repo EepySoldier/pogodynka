@@ -21,7 +21,7 @@ export async function getCityData(cityName: string): Promise<City[]> {
     const params = new URLSearchParams({
         name: cityName,
         count: "10",
-        language: "en",
+        language: "pl",
         format: "json",
     });
 
