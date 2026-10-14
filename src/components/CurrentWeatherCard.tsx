@@ -31,14 +31,14 @@ export default function CurrentWeatherCard({ city, weather }: CurrentWeatherCard
             <dl className="mt-6 flex gap-8 text-sm">
                 <div className="flex items-center gap-2">
                     <Wind className="size-4" />
-                    <dt className="sr-only">Prędkość Wiatru</dt>
+                    <dt>Prędkość Wiatru</dt>
                     <dd>
                         {current.windSpeed} {units.windSpeed}
                     </dd>
                 </div>
                 <div className="flex items-center gap-2">
                     <Droplets className="size-4"/>
-                    <dt className="sr-only">Wilgotność</dt>
+                    <dt>Wilgotność</dt>
                     <dd>{current.humidity}%</dd>
                 </div>
             </dl>
