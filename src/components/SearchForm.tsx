@@ -25,7 +25,8 @@ export default function SearchForm({ defaultValue = "" }: SearchFormProps) {
                 type="text"
                 value={city}
                 onChange={(event) => setCity(event.target.value)}
-                placeholder="Wprowadź nazwe miasta"
+                placeholder="Wprowadź nazwę miasta"
+                aria-label="Nazwa miasta"
                 className="flex-1 rounded-lg border border-gray-300 px-4 py-2"
             />
             <button

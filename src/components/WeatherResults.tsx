@@ -24,7 +24,7 @@ export default async function WeatherResults({ query }: WeatherResultsProps) {
 
     if (errorMessage) {
         return (
-            <p className="mt-6 text-red-600">
+            <p role="alert" className="mt-6 text-red-600">
                 {errorMessage}
             </p>
         );
