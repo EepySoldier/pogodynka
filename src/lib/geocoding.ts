@@ -32,3 +32,7 @@ export async function getCityData(cityName: string): Promise<City[]> {
     const data: GeocodingResponse = await response.json();
     return data.results ?? [];
 }
+
+export function formatCityName(city: City): string {
+    return [city.name, city.admin1, city.country].filter(Boolean).join(", ");
+}

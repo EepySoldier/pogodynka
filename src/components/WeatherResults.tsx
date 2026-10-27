@@ -1,3 +1,4 @@
+import CityPicker from "@/components/CityPicker";
 import CurrentWeatherCard from "@/components/CurrentWeatherCard";
 import ForecastList from "@/components/ForecastList";
 import { getCityData, type City } from "@/lib/geocoding";
@@ -5,16 +6,18 @@ import { getWeather, type Weather } from "@/lib/weather";
 
 type WeatherResultsProps = {
     query: string,
+    selectedId?: number,
 }
 
-export default async function WeatherResults({ query }: WeatherResultsProps) {
+export default async function WeatherResults({ query, selectedId }: WeatherResultsProps) {
+    let cities: City[] = [];
     let city: City | undefined;
     let weather: Weather | null = null;
     let errorMessage: string | null = null;
 
     try {
-        const cities = await getCityData(query);
-        city = cities[0];
+        cities = await getCityData(query);
+        city = cities.find((item) => item.id === selectedId) ?? (cities.length === 1 ? cities[0] : undefined);
         if (city) {
             weather = await getWeather(city.latitude, city.longitude);
         }
@@ -30,8 +33,12 @@ export default async function WeatherResults({ query }: WeatherResultsProps) {
         );
     }
 
-    if (!city || !weather) {
+    if (cities.length === 0) {
         return <p className="mt-6">Nie znaleziono miasta dla &quot;{query}&quot;.</p>;
+    }
+
+    if (!city || !weather) {
+        return <CityPicker query={query} cities={cities} />;
     }
 
     return (
