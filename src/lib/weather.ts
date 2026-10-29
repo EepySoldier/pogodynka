@@ -1,3 +1,5 @@
+import { fetchWithTimeout } from "@/lib/fetchWithTimeout";
+
 export type CurrentWeather = {
     time: string,
     temperature: number,
@@ -52,7 +54,7 @@ export async function getWeather(latitude: number, longitude: number, days = 5):
         forecast_days: String(days),
     });
 
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`, { next: { revalidate: 600 } });
+    const response = await fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?${params}`, { next: { revalidate: 600 } });
     if(!response.ok){
         throw new Error(`Weather server error: ${response.status} ${response.statusText}`);
     }

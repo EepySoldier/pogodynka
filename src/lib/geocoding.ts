@@ -1,3 +1,5 @@
+import { fetchWithTimeout } from "@/lib/fetchWithTimeout";
+
 export type City = {
     id: number,
     name: string,
@@ -25,7 +27,7 @@ export async function getCityData(cityName: string): Promise<City[]> {
         format: "json",
     });
 
-    const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?${params}`);
+    const response = await fetchWithTimeout(`https://geocoding-api.open-meteo.com/v1/search?${params}`);
     if(!response.ok){
         throw new Error(`Geocoding server error: ${response.status} ${response.statusText}`);
     }
