@@ -1,5 +1,7 @@
 import { fetchWithTimeout } from "@/lib/fetchWithTimeout";
 
+export type Units = "metric" | "imperial";
+
 export type CurrentWeather = {
     time: string,
     temperature: number,
@@ -44,7 +46,7 @@ type ForecastResponse = {
     },
 }
 
-export async function getWeather(latitude: number, longitude: number, days = 5): Promise<Weather> {
+export async function getWeather(latitude: number, longitude: number, units: Units = "metric", days = 5): Promise<Weather> {
     const params = new URLSearchParams({
         latitude: String(latitude),
         longitude: String(longitude),
@@ -52,6 +54,8 @@ export async function getWeather(latitude: number, longitude: number, days = 5):
         daily: "weather_code,temperature_2m_max,temperature_2m_min",
         timezone: "auto",
         forecast_days: String(days),
+        temperature_unit: units === "imperial" ? "fahrenheit" : "celsius",
+        wind_speed_unit: units === "imperial" ? "mph" : "kmh",
     });
 
     const response = await fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?${params}`, { next: { revalidate: 600 } });

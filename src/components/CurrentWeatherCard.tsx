@@ -1,21 +1,19 @@
 import { Droplets, Wind } from "lucide-react";
-import {formatCityName, type City } from "@/lib/geocoding";
 import type { Weather } from "@/lib/weather";
 import { describeWeatherCode } from "@/lib/weatherCodes";
 
 type CurrentWeatherCardProps = {
-    city: City,
+    title: string,
     weather: Weather,
 }
 
-export default function CurrentWeatherCard({ city, weather }: CurrentWeatherCardProps) {
+export default function CurrentWeatherCard({ title, weather }: CurrentWeatherCardProps) {
     const { current, units } = weather;
     const { label, icon: Icon } = describeWeatherCode(current.weatherCode);
-    const location = formatCityName(city);
 
     return (
         <section className="rounded-2xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold">{location}</h2>
+            <h2 className="text-lg font-semibold">{title}</h2>
 
             <div className="mt-4 flex items-center gap-4">
                 <Icon className="size-16"/>

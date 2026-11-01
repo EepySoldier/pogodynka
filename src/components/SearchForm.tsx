@@ -3,12 +3,15 @@
 import { useState, type SubmitEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
+import { buildHref } from "@/lib/urls";
+import type { Units } from "@/lib/weather";
 
 type SearchFormProps = {
     defaultValue?: string,
+    units?: Units,
 }
 
-export default function SearchForm({ defaultValue = "" }: SearchFormProps) {
+export default function SearchForm({ defaultValue = "", units }: SearchFormProps) {
     const router = useRouter();
     const [city, setCity] = useState(defaultValue);
 
@@ -16,7 +19,7 @@ export default function SearchForm({ defaultValue = "" }: SearchFormProps) {
         event.preventDefault();
         const query = city.trim();
         if (!query) return;
-        router.push(`/?city=${encodeURIComponent(query)}`);
+        router.push(buildHref({ city: query, units }));
     }
 
     return (

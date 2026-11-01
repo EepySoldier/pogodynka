@@ -1,15 +1,16 @@
 import CityPicker from "@/components/CityPicker";
 import CurrentWeatherCard from "@/components/CurrentWeatherCard";
 import ForecastList from "@/components/ForecastList";
-import { getCityData, type City } from "@/lib/geocoding";
-import { getWeather, type Weather } from "@/lib/weather";
+import { formatCityName, getCityData, type City } from "@/lib/geocoding";
+import { getWeather, type Units, type Weather } from "@/lib/weather";
 
 type WeatherResultsProps = {
     query: string,
     selectedId?: number,
+    units: Units,
 }
 
-export default async function WeatherResults({ query, selectedId }: WeatherResultsProps) {
+export default async function WeatherResults({ query, selectedId, units }: WeatherResultsProps) {
     let cities: City[] = [];
     let city: City | undefined;
     let weather: Weather | null = null;
@@ -19,7 +20,7 @@ export default async function WeatherResults({ query, selectedId }: WeatherResul
         cities = await getCityData(query);
         city = cities.find((item) => item.id === selectedId) ?? (cities.length === 1 ? cities[0] : undefined);
         if (city) {
-            weather = await getWeather(city.latitude, city.longitude);
+            weather = await getWeather(city.latitude, city.longitude, units);
         }
     } catch {
         errorMessage = "Nie udało się załadować danych pogodowych. Spróbuj ponownie później.";
@@ -38,12 +39,12 @@ export default async function WeatherResults({ query, selectedId }: WeatherResul
     }
 
     if (!city || !weather) {
-        return <CityPicker query={query} cities={cities} />;
+        return <CityPicker query={query} cities={cities} units={units} />;
     }
 
     return (
         <div className="mt-6 flex flex-col gap-6">
-            <CurrentWeatherCard city={city} weather={weather} />
+            <CurrentWeatherCard title={formatCityName(city)} weather={weather} />
             <ForecastList daily={weather.daily} unit={weather.units.temperature} />
         </div>
     );
