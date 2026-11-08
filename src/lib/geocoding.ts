@@ -21,7 +21,7 @@ export async function getCityData(cityName: string): Promise<City[]> {
     if(!query) return [];
 
     const params = new URLSearchParams({
-        name: cityName,
+        name: query,
         count: "10",
         language: "pl",
         format: "json",
