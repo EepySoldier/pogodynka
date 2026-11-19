@@ -2,9 +2,10 @@ export default function WeatherSkeleton() {
     return (
         <div
             role="status"
-            aria-label="Ładowanie pogody"
-            className="mt-6 flex animate-pulse flex-col gap-6"
+            aria-busy="true"
+            className="mt-6 flex animate-pulse flex-col gap-6 motion-reduce:animate-none"
         >
+            <span className="sr-only">Ładowanie pogody...</span>
             <div className="h-48 rounded-2xl bg-gray-200" />
             <div>
                 <div className="mb-3 h-6 w-40 rounded bg-gray-200" />

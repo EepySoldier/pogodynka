@@ -12,8 +12,8 @@ export default function CurrentWeatherCard({ title, weather }: CurrentWeatherCar
     const { label, icon: Icon } = describeWeatherCode(current.weatherCode);
 
     return (
-        <section className="rounded-2xl border border-gray-200 p-6">
-            <h2 className="text-lg font-semibold">{title}</h2>
+        <section aria-labelledby="current-weather-title" className="rounded-2xl border border-gray-200 p-6">
+            <h2 id="current-weather-title" className="text-lg font-semibold">{title}</h2>
 
             <div className="mt-4 flex items-center gap-4">
                 <Icon className="size-16"/>

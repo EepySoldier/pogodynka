@@ -35,7 +35,7 @@ export default async function WeatherResults({ query, selectedId, units }: Weath
     }
 
     if (cities.length === 0) {
-        return <p className="mt-6">Nie znaleziono miasta dla &quot;{query}&quot;.</p>;
+        return <p role="status" className="mt-6">Nie znaleziono miasta dla &quot;{query}&quot;.</p>;
     }
 
     if (!city || !weather) {

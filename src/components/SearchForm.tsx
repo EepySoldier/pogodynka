@@ -23,7 +23,7 @@ export default function SearchForm({ defaultValue = "", units }: SearchFormProps
     }
 
     return (
-        <form onSubmit={handleSubmit} className="flex gap-2">
+        <form role="search" aria-label="Wyszukiwanie miasta" onSubmit={handleSubmit} className="flex gap-2">
             <input
                 type="text"
                 value={city}

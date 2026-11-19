@@ -46,11 +46,15 @@ export default function LocationButton({ units }: LocationButtonProps) {
                 type="button"
                 onClick={handleClick}
                 disabled={isLocating}
+                aria-busy={isLocating}
                 className="flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-1 text-sm hover:bg-gray-50 disabled:opacity-50"
             >
                 <LocateFixed className="size-4" />
                 {isLocating ? "Szukam lokalizacji..." : "Użyj mojej lokalizacji"}
             </button>
+            <p role="status" className="sr-only">
+                {isLocating ? "Szukam lokalizacji..." : ""}
+            </p>
             {error && (
                 <p role="alert" className="mt-2 text-sm text-red-600">
                     {error}

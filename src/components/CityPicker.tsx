@@ -12,11 +12,11 @@ type CityPickerProps = {
 
 export default function CityPicker({ query, cities, units }: CityPickerProps) {
     return (
-        <section className="mt-6">
-            <h2 className="mb-3 text-lg font-semibold">
+        <section aria-labelledby="city-picker-title" className="mt-6">
+            <h2 id="city-picker-title" className="mb-3 text-lg font-semibold">
                 Znaleziono kilka miejscowości dla &quot;{query}&quot;
             </h2>
-            <ul className="flex flex-col gap-2">
+            <ul role="list" className="flex flex-col gap-2">
                 {cities.map((city) => (
                     <li key={city.id}>
                         <Link

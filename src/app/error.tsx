@@ -17,7 +17,7 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
         <main className="mx-auto flex w-full max-w-2xl flex-col items-center gap-4 p-8 text-center">
             <TriangleAlert className="size-12 text-red-600" />
             <h1 className="text-2xl font-bold">Coś poszło nie tak</h1>
-            <p className="text-gray-600">
+            <p role="alert" className="text-gray-600">
                 Wystąpił nieoczekiwany błąd. Spróbuj ponownie za chwilę.
             </p>
             <button
