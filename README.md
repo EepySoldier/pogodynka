@@ -4,7 +4,9 @@ Wpisujesz miasto i widzisz pogodę na teraz oraz prognozę na 5 dni. Zrobiona na
 
 Działa tu: https://pogodynka-two.vercel.app/
 
-<!-- TODO: screeny -->
+<img width="786" height="536" alt="image" src="https://github.com/user-attachments/assets/7015c4c3-9ba4-4ad3-b46b-1b9466c6bfd1" />
+
+<img width="809" height="716" alt="image" src="https://github.com/user-attachments/assets/0c5f2888-e8e5-454c-a11a-7259a094e696" />
 
 ## Co potrafi
 
@@ -31,4 +33,8 @@ npm run dev
 
 Testy: `npm test`.
 
-Stan wyszukiwania siedzi w URL-u (`/?city=Warszawa&units=imperial`), więc po odświeżeniu nic się nie gubi i można komuś wysłać link.
+## Decyzje techniczne
+
+- **Stan w URL-u**: po odświeżeniu nic się nie gubi i można komuś wysłać link
+- **Pogodę pobierają server components**: dane pobiera serwer, więc do przeglądarki trafia mniej JS-a, a Suspense pokazuje w tym czasie szkielet ładowania
+- **Timeout na fetchu**: zapytanie jest przerywane po 8 s, żeby zawieszone API nie blokowało strony w nieskończoność
