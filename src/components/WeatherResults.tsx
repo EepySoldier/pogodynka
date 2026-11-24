@@ -5,47 +5,58 @@ import { formatCityName, getCityData, type City } from "@/lib/geocoding";
 import { getWeather, type Units, type Weather } from "@/lib/weather";
 
 type WeatherResultsProps = {
-    query: string,
-    selectedId?: number,
-    units: Units,
-}
+  query: string;
+  selectedId?: number;
+  units: Units;
+};
 
-export default async function WeatherResults({ query, selectedId, units }: WeatherResultsProps) {
-    let cities: City[] = [];
-    let city: City | undefined;
-    let weather: Weather | null = null;
-    let errorMessage: string | null = null;
+export default async function WeatherResults({
+  query,
+  selectedId,
+  units,
+}: WeatherResultsProps) {
+  let cities: City[] = [];
+  let city: City | undefined;
+  let weather: Weather | null = null;
+  let errorMessage: string | null = null;
 
-    try {
-        cities = await getCityData(query);
-        city = cities.find((item) => item.id === selectedId) ?? (cities.length === 1 ? cities[0] : undefined);
-        if (city) {
-            weather = await getWeather(city.latitude, city.longitude, units);
-        }
-    } catch {
-        errorMessage = "Nie udało się załadować danych pogodowych. Spróbuj ponownie później.";
+  try {
+    cities = await getCityData(query);
+    city =
+      cities.find((item) => item.id === selectedId) ??
+      (cities.length === 1 ? cities[0] : undefined);
+    if (city) {
+      weather = await getWeather(city.latitude, city.longitude, units);
     }
+  } catch {
+    errorMessage =
+      "Nie udało się załadować danych pogodowych. Spróbuj ponownie później.";
+  }
 
-    if (errorMessage) {
-        return (
-            <p role="alert" className="mt-6 text-red-600">
-                {errorMessage}
-            </p>
-        );
-    }
-
-    if (cities.length === 0) {
-        return <p role="status" className="mt-6">Nie znaleziono miasta dla &quot;{query}&quot;.</p>;
-    }
-
-    if (!city || !weather) {
-        return <CityPicker query={query} cities={cities} units={units} />;
-    }
-
+  if (errorMessage) {
     return (
-        <div className="mt-6 flex flex-col gap-6">
-            <CurrentWeatherCard title={formatCityName(city)} weather={weather} />
-            <ForecastList daily={weather.daily} unit={weather.units.temperature} />
-        </div>
+      <p role="alert" className="mt-6 text-red-600">
+        {errorMessage}
+      </p>
     );
+  }
+
+  if (cities.length === 0) {
+    return (
+      <p role="status" className="mt-6">
+        Nie znaleziono miasta dla &quot;{query}&quot;.
+      </p>
+    );
+  }
+
+  if (!city || !weather) {
+    return <CityPicker query={query} cities={cities} units={units} />;
+  }
+
+  return (
+    <div className="mt-6 flex flex-col gap-6">
+      <CurrentWeatherCard title={formatCityName(city)} weather={weather} />
+      <ForecastList daily={weather.daily} unit={weather.units.temperature} />
+    </div>
+  );
 }

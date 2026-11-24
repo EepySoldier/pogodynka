@@ -1,40 +1,44 @@
 import { fetchWithTimeout } from "@/lib/fetchWithTimeout";
 
 export type City = {
-    id: number,
-    name: string,
-    latitude: number,
-    longitude: number,
-    country_code: string,
-    timezone: string,
-    population?: number,
-    country?: string,
-    admin1?: string,
-}
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  country_code: string;
+  timezone: string;
+  population?: number;
+  country?: string;
+  admin1?: string;
+};
 
 type GeocodingResponse = {
-    results?: City[];
-}
+  results?: City[];
+};
 
 export async function getCityData(cityName: string): Promise<City[]> {
-    const query = cityName.trim();
-    if(!query) return [];
+  const query = cityName.trim();
+  if (!query) return [];
 
-    const params = new URLSearchParams({
-        name: query,
-        count: "10",
-        language: "pl",
-        format: "json",
-    });
+  const params = new URLSearchParams({
+    name: query,
+    count: "10",
+    language: "pl",
+    format: "json",
+  });
 
-    const response = await fetchWithTimeout(`https://geocoding-api.open-meteo.com/v1/search?${params}`);
-    if(!response.ok){
-        throw new Error(`Geocoding server error: ${response.status} ${response.statusText}`);
-    }
-    const data: GeocodingResponse = await response.json();
-    return data.results ?? [];
+  const response = await fetchWithTimeout(
+    `https://geocoding-api.open-meteo.com/v1/search?${params}`,
+  );
+  if (!response.ok) {
+    throw new Error(
+      `Geocoding server error: ${response.status} ${response.statusText}`,
+    );
+  }
+  const data: GeocodingResponse = await response.json();
+  return data.results ?? [];
 }
 
 export function formatCityName(city: City): string {
-    return [city.name, city.admin1, city.country].filter(Boolean).join(", ");
+  return [city.name, city.admin1, city.country].filter(Boolean).join(", ");
 }
