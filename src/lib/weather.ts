@@ -58,7 +58,7 @@ export async function getWeather(latitude: number, longitude: number, units: Uni
         wind_speed_unit: units === "imperial" ? "mph" : "kmh",
     });
 
-    const response = await fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?${params}`, { cache: "no-store" });
+    const response = await fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?${params}`, { next: { revalidate: 600 } });
     if(!response.ok){
         throw new Error(`Weather server error: ${response.status} ${response.statusText}`);
     }
