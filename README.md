@@ -39,3 +39,6 @@ Testy: `npm test`.
 - **Pogodę pobierają server components**: dane pobiera serwer, więc do przeglądarki trafia mniej JS-a, a Suspense pokazuje w tym czasie szkielet ładowania
 - **Timeout na fetchu**: zapytanie jest przerywane po 8 s, żeby zawieszone API nie blokowało strony w nieskończoność
 - **Cache**: prognoza i tak nie zmienia się co chwilę, więc kilkuminutowe opóźnienie nie przeszkadza, a przy wielu wejściach na tę samą lokalizację nie odpytuję API za każdym razem.
+
+  <img width="514" height="395" alt="image" src="https://github.com/user-attachments/assets/5554b6a9-631c-4813-88e6-b98b08046880" />
+
