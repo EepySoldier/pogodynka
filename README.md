@@ -1,6 +1,6 @@
 # Pogodynka
 
-Wpisujesz miasto i widzisz pogodę na teraz oraz prognozę na 5 dni. Zrobiona na Next.js i TypeScripcie, głównie żeby się go nauczyć.
+Wpisujesz miasto i widzisz pogodę na teraz oraz prognozę na 5 dni.
 
 Działa tu: https://pogodynka-two.vercel.app/
 
